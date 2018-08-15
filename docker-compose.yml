@@ -3,7 +3,7 @@ version: '3'
 services:
     vimdock:
         build:
-            context: .
+            context: ./docker/
         container_name: vimdock
         hostname: vimdock
         environment:
