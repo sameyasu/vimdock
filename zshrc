@@ -7,7 +7,7 @@ colors
 
 autoload -Uz promptinit
 
-PROMPT="%F{027}%m%f%F{045}:%~%f%# "
+PROMPT="%F{yellow}%m%f%F{045}:%~%f%# "
 
 autoload -Uz vcs_info
 setopt prompt_subst
@@ -113,51 +113,4 @@ _fzf_complete_git() {
 
 _fzf_complete_git_post() {
     awk '{print $1}'
-}
-
-docker-exec-bash() {
-  local container
-  container="$(docker ps -a -f status=running | sed -e '1d' | fzf --height 40% --reverse | awk '{print $1}')"
-  if [ -n "${container}" ]; then
-    docker exec -it ${container} /bin/bash
-  fi
-}
-
-docker-start() {
-  local container
-  container="$(docker ps -a -f status=exited | sed -e '1d' | fzf --height 40% --reverse | awk '{print $1}')"
-  if [ -n "${container}" ]; then
-    echo 'starting container...'
-    docker start ${container}
-  fi
-}
-
-docker-stop() {
-  local container
-  container="$(docker ps -a -f status=running | sed -e '1d' | fzf --height 40% --reverse | awk '{print $1}')"
-  if [ -n "${container}" ]; then
-    echo 'stopping container...'
-    docker stop ${container}
-  fi
-}
-
-docker-rm() {
-  local container
-  container="$(docker ps -a -f status=exited | sed -e '1d' | fzf --height 40% --reverse | awk '{print $1}')"
-  if [ -n "${container}" ]; then
-    echo 'removing container...'
-    docker rm ${container}
-  fi
-}
-
-docker-rmi() {
-  local image
-  image="$(docker images | sed -e '1d' | fzf --height 40% --reverse -m | awk '{print $3}')"
-  if [ -n "${image}" ]; then
-    for img in $(echo $image)
-    do
-        echo 'removing... '${img}
-        docker rmi ${img}
-    done
-  fi
 }

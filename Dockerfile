@@ -23,7 +23,8 @@ RUN set -ex ;\
 
 RUN set -ex; \
     curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh; \
-    sh ./installer.sh ./.cache/dein
+    sh ./installer.sh ./.cache/dein; \
+    rm -f ./installer.sh
 
 RUN set -ex; \
     git clone --depth 1 https://github.com/junegunn/fzf.git ./.fzf; \
@@ -39,5 +40,8 @@ COPY tmux.conf /root/.tmux.conf
 RUN set -ex; \
     mkdir -p /root/.config/nvim/; \
     ln -sf /root/.vimrc /root/.config/nvim/init.vim
+
+WORKDIR /host
+VOLUME /host
 
 CMD ["/usr/bin/zsh","--login"]
