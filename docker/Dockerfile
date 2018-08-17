@@ -31,7 +31,7 @@ RUN set -ex; \
     ./.fzf/install
 
 RUN set -ex; \
-    curl -L https://github.com/BurntSushi/ripgrep/releases/download/0.9.0/ripgrep_0.9.0_amd64.deb > ripgrep_0.9.0_amd64.deb; \
+    curl -LO https://github.com/BurntSushi/ripgrep/releases/download/0.9.0/ripgrep_0.9.0_amd64.deb; \
     dpkg -i ripgrep_0.9.0_amd64.deb; \
     rm -f ripgrep_0.9.0_amd64.deb
 
