@@ -46,7 +46,6 @@ RUN set -ex; \
     mkdir -p /root/.config/nvim/; \
     ln -sf /root/.vimrc /root/.config/nvim/init.vim
 
-WORKDIR /host
 VOLUME /host
 
 CMD ["/usr/bin/zsh","--login"]
