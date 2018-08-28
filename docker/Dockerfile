@@ -15,7 +15,7 @@ RUN apt-get update && \
         python3-pip \
         python3-neovim \
         tmux \
-	openssh-server
+        openssh-server
 
 WORKDIR /root
 
@@ -57,6 +57,9 @@ COPY tmux.conf /root/.tmux.conf
 RUN set -ex; \
     mkdir -p /root/.config/nvim/; \
     ln -sf /root/.vimrc /root/.config/nvim/init.vim
+
+# install nvim plugins
+RUN nvim +UpdateRemotePlugins +qa
 
 VOLUME /host
 
