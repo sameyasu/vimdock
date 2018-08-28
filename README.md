@@ -14,7 +14,7 @@
 インストールする程でもないけど、`git clone`するだけ。
 
 ```
-git clone --depth 1 git@github.com/sameyasu/vimdock.git vimdock
+git clone --depth 1 git@github.com:sameyasu/vimdock.git vimdock
 ```
 
 ## 使い方
