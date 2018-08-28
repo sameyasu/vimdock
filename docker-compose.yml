@@ -2,13 +2,13 @@ version: '3'
 
 services:
     vimdock:
-        build:
-            context: ./docker/
+        image: sameyasu/vimdock
         container_name: vimdock
         hostname: vimdock
         environment:
             - TZ=Asia/Tokyo
             - TERM=xterm-256color
-        command: ["sleep","1000d"]
-#        volumes:
-#            - /path-to-your-workdir:/host
+        ports:
+            - "10022:22"
+        volumes:
+            - ../:/host
