@@ -14,9 +14,21 @@ RUN apt-get update && \
         python3-dev \
         python3-pip \
         python3-neovim \
-        tmux
+        tmux \
+	openssh-server
 
 WORKDIR /root
+
+# referenced
+# https://docs.docker.com/engine/examples/running_ssh_service/
+RUN set -ex ;\
+    mkdir /var/run/sshd; \
+    echo 'root:vimdock' | chpasswd; \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config; \
+    sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
 
 RUN set -ex ;\
     chsh -s /usr/bin/zsh
@@ -48,4 +60,9 @@ RUN set -ex; \
 
 VOLUME /host
 
-CMD ["/usr/bin/zsh","--login"]
+# default working directory
+WORKDIR /work
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd","-D"]
